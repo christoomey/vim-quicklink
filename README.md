@@ -4,6 +4,8 @@ Vim Quicklock
 A Vim plugin for quickly looking up a topic and inserting the relevant link
 into a markdown document.
 
+![Overview](./overview.gif)
+
 Usage
 -----
 
@@ -21,7 +23,7 @@ the search. A results window will pop up with the following keymaps:
 Installation
 ------------
 
-Add the following line to your `~/.vimrc` file:
+Assuming you're using Vundle, add the following line to your `~/.vimrc` file:
 
 ``` vim
 Bundle 'christoomey/vim-tmux-navigator'

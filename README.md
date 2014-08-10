@@ -23,8 +23,13 @@ the search. A results window will pop up with the following keymaps:
 Installation
 ------------
 
-Assuming you're using Vundle, add the following line to your `~/.vimrc` file:
+This plugin relies on a [webapi-vim][], a vimscript wrapper for interacting
+with APIs. Assuming you're using Vundle, add the following line to your
+`~/.vimrc` file:
 
 ``` vim
+Bundle 'mattn/webapi-vim'
 Bundle 'christoomey/vim-tmux-navigator'
 ```
+
+[webapi-vim]: https://github.com/mattn/webapi-vim

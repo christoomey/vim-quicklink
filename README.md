@@ -1,4 +1,4 @@
-Vim Quicklock
+Vim Quicklink
 =============
 
 A Vim plugin for quickly looking up a topic and inserting the relevant link

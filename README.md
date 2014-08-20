@@ -29,7 +29,7 @@ with APIs. Assuming you're using Vundle, add the following line to your
 
 ``` vim
 Bundle 'mattn/webapi-vim'
-Bundle 'christoomey/vim-tmux-navigator'
+Bundle 'christoomey/vim-quicklink'
 ```
 
 [webapi-vim]: https://github.com/mattn/webapi-vim

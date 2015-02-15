@@ -95,4 +95,4 @@ function! OpenLinkOnCurrentLine()
   call system('open ' . expand('<cWORD>'))
 endfunction
 
-vnoremap <C-k> :call ConvertVisualSelectionToLink()<cr>
+vnoremap <buffer> <C-k> :call ConvertVisualSelectionToLink()<cr>

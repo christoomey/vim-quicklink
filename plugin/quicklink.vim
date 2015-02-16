@@ -95,4 +95,22 @@ function! OpenLinkOnCurrentLine()
   call system('open ' . expand('<cWORD>'))
 endfunction
 
+function! s:OpenLink()
+  "get the initial position of the curosr
+  let initial_pos = getpos('.')
+  "empty the @a register in the case cursor is not well palced and that old
+  "patterns would still trigger.
+  let @a = ""
+  normal "ayi]
+  let escaped_link_name = escape(getreg('a'), '&')
+  let pattern = '\v^\['.escaped_link_name.'\]: (%(ftp[s]?|http[s]?):\/\/\S+)>'
+  " go to link location
+  let found = search(pattern, 'e')
+  if found
+    "use netrw-gx to open the link
+    normal gx
+  endif
+  call setpos('.', initial_pos)
+endfunction
+
 vnoremap <C-k> :call ConvertVisualSelectionToLink()<cr>

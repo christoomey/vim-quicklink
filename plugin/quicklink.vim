@@ -113,4 +113,12 @@ function! s:OpenLink()
   call setpos('.', initial_pos)
 endfunction
 
+command! OpenMarkdownLink call s:OpenLink()
+if !exists('g:quicklink_open_mapping')
+  let g:quicklink_open_mapping = 'gX'
+endif
+if g:quicklink_open_mapping != ''
+  execute 'nnoremap <buffer> '.g:quicklink_open_mapping.' :OpenMarkdownLink<cr>'
+endif
+
 vnoremap <C-k> :call ConvertVisualSelectionToLink()<cr>

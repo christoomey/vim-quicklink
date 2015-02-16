@@ -9,16 +9,31 @@ into a markdown document.
 Usage
 -----
 
-Start by visually selecting the word or phrase you want to add a link around,
-then press `<C-k>` to activate the plugin. A prompt will pop up asking for the
-text to search for, defaulting to the hihglighted text. Hit `<enter>` to run
-the search. A results window will pop up with the following keymaps:
+### URL Searching
 
-- `<tab>` - Jump to next search result
-- `<S-tab>` - Jump to the previous result
-- `o` - open the link for the result under the cursor in your browser
-- `<enter>` - accept the result under the cursor
-- `q` - quit out of the quicklink adventure
+The main feature of `vim-quicklink` is to search for and insert a relevant link
+without needing to leave vim. You can do this by visually selecting the word or
+phrase you want to add a link around, then press `<C-k>` to activate the plugin.
+A prompt will pop up asking for the text to search for, defaulting to the
+highlighted text. Hit `<enter>` to run the search. A results window will pop up
+with the following keymaps:
+
+- `<tab>` - Jump to next search result;
+- `<S-tab>` - Jump to the previous result;
+- `o` - open the link for the result under the cursor in your browser;
+- `<enter>` - accept the result under the cursor;
+- `q` - quit out of the quicklink adventure.
+
+### Link Opening
+
+`vim-quicklink` also updates the `gx` mapping from `netrw` to work with markdown
+link format. The default behavior of `gx` when your cursor is over a URL will
+still work and is unchanged, but you can now also use `gx` on a markdown link
+such as `[webapi-vim][]` in this readme and `vim-quicklink` will find and open
+the associated URL using `netrw`. All keymaps :
+
+- `gx` - Open link under cursor;
+- `gl` - Go to link defintion under cursor.
 
 Installation
 ------------

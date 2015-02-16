@@ -1,3 +1,17 @@
+" File: quicklink.vim
+" Author: Chris Toomey <chris@ctoomey.com>
+" Description: Markdown formatted link search, copy&paste and opening.
+" Last Modified: February 17, 2015
+
+let s:MARKDOWN_LINK_SYNTAX_IDS = [
+  \ "markdownLinkText",
+  \ "markdownLinkTextDelimiter",
+  \ "markdownIdDeclaration",
+  \ "mkdLink",
+  \ "mkdDelimiter",
+  \ "mkdLinkDef"
+  \ ]
+
 function! ConvertVisualSelectionToLink(...)
   if a:0 == 0
     normal gv"vy
@@ -50,12 +64,12 @@ function! s:DisplaySearchResults(results)
   setlocal nowrap
   nnoremap <buffer> q :q!<cr>
   nnoremap <buffer> <cr> :call SelectSearchResult()<cr>
-  nnoremap <buffer> <C-o> :call OpenLinkOnCurrentLine()<cr>
+  nnoremap <buffer> <C-o> :normal gx<cr>
   nnoremap <buffer> <C-n> 2j
   nnoremap <buffer> <C-p> 2k
   nnoremap <buffer> <tab> :call search('^\S')<cr>:noh<cr>
   nnoremap <buffer> <S-tab> :call search('^\S', 'b')<cr>:noh<cr>
-  nnoremap <buffer> o :call OpenLinkOnCurrentLine()<cr>
+  nnoremap <buffer> o :normal gx<cr>
   normal ggdG
   call append(0, formatted)
   normal ddgg
@@ -91,8 +105,53 @@ function! SelectSearchResult()
   call ConvertVisualSelectionToLink(selected)
 endfunction
 
-function! OpenLinkOnCurrentLine()
-  call system('open ' . expand('<cWORD>'))
+function! s:OnMarkdownLink()
+  let current_syntax_id = synIDattr(synID(line("."), col("."), 1), "name")
+  return count(s:MARKDOWN_LINK_SYNTAX_IDS, current_syntax_id) != 0
 endfunction
+
+function! s:CaptureLinkText()
+  let @a = ""
+  normal "ayi]
+  return escape(getreg('a'), '&')
+endfunction
+
+function! s:OpenWithNetrw()
+  if has("patch-7.4.567")
+    call netrw#BrowseX(expand("<cfile>"),0)
+  else
+    call netrw#NetrwBrowseX(expand("<cfile>"),0)
+  endif
+endfunction
+
+function! s:GoToLinkDefinition(link_name)
+  let link_target_pattern = '\v^\['.a:link_name.'\]: (%(ftp[s]?|http[s]?):\/\/\S+)>'
+  let found = search(link_target_pattern, 'ce')
+  normal B
+  return found
+endfunction
+
+function! s:OpenMarkdownLink()
+  let initial_pos = getpos('.')
+  let escaped_link_name = s:CaptureLinkText()
+  if s:GoToLinkDefinition(escaped_link_name)
+    call s:OpenWithNetrw()
+  endif
+  call setpos('.', initial_pos)
+endfunction
+
+function! s:MarkdownAwareGX()
+  if s:OnMarkdownLink()
+    call s:OpenMarkdownLink()
+  else
+    call s:OpenWithNetrw()
+  endif
+endfunction
+
+command! MarkdownAwareGX call <sid>MarkdownAwareGX()
+nnoremap <buffer> gx :MarkdownAwareGX<cr>
+
+command! GoToLinkDefinition call <sid>GoToLinkDefinition(<sid>CaptureLinkText())
+nnoremap <buffer> gl :GoToLinkDefinition<cr>
 
 vnoremap <buffer> <C-k> :call ConvertVisualSelectionToLink()<cr>

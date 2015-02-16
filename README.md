@@ -11,7 +11,7 @@ Usage
 
 Start by visually selecting the word or phrase you want to add a link around,
 then press `<C-k>` to activate the plugin. A prompt will pop up asking for the
-text to search for, defaulting to the hihglighted text. Hit `<enter>` to run
+text to search for, defaulting to the highlighted text. Hit `<enter>` to run
 the search. A results window will pop up with the following keymaps:
 
 - `<tab>` - Jump to next search result
@@ -19,6 +19,18 @@ the search. A results window will pop up with the following keymaps:
 - `o` - open the link for the result under the cursor in your browser
 - `<enter>` - accept the result under the cursor
 - `q` - quit out of the quicklink adventure
+
+Additionally, the plugin lets you open a markdown reference (`[reference][]`) by
+pressing `gX`. One may want to change this mapping to anything (`<cr>` for e.g.)
+by modifying the `g:quicklink_open_mapping` global variable like so :
+
+```vim
+g:quicklink_open_mapping = '<cr>'
+```
+
+This functionnality uses `pi_netrw` (`:normal gx`) in order to
+open the link, so it will open it using the program specified by the global
+variable `g:netrw_browsex_viewer` (see `:h netrw-gx`).
 
 Installation
 ------------

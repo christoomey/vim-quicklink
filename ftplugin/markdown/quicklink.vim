@@ -95,7 +95,14 @@ function! OpenLinkOnCurrentLine()
   call system('open ' . expand('<cWORD>'))
 endfunction
 
-function! s:OpenLink()
+function! s:OnMarkdownLink()
+    return synIDattr(synID(line("."),col("."),1),"name") == "markdownLinkText" ||
+                \ synIDattr(synID(line("."),col("."),1),"name") == "markdownLinkTextDelimiter" ||
+                \ synIDattr(synID(line("."),col("."),1),"name") == "mkdLink" ||
+                \ synIDattr(synID(line("."),col("."),1),"name") == "mkdDelimiter"
+endf
+
+function! s:OpenMarkdownLink()
   "get the initial position of the curosr
   let initial_pos = getpos('.')
   "empty the @a register in the case cursor is not well palced and that old

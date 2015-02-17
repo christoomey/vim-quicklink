@@ -121,4 +121,4 @@ if g:quicklink_open_mapping != ''
   execute 'nnoremap <buffer> '.g:quicklink_open_mapping.' :OpenMarkdownLink<cr>'
 endif
 
-vnoremap <C-k> :call ConvertVisualSelectionToLink()<cr>
+vnoremap <buffer> <C-k> :call ConvertVisualSelectionToLink()<cr>

@@ -21,7 +21,7 @@ the search. A results window will pop up with the following keymaps:
 - `q` - quit out of the quicklink adventure
 
 Additionally, the plugin lets you open a markdown reference (`[reference][]`) by
-pressing `gX`. One may want to change this mapping to anything (`<cr>` for e.g.)
+pressing `gx`. One may want to change this mapping to anything (`<cr>` for e.g.)
 by modifying the `g:quicklink_open_mapping` global variable like so :
 
 ```vim
@@ -30,7 +30,8 @@ g:quicklink_open_mapping = '<cr>'
 
 This functionnality uses `pi_netrw` (`:normal gx`) in order to
 open the link, so it will open it using the program specified by the global
-variable `g:netrw_browsex_viewer` (see `:h netrw-gx`).
+variable `g:netrw_browsex_viewer` (see `:h netrw-gx`). Also, `:normal gx` will
+behave normally if on normal link.
 
 Installation
 ------------

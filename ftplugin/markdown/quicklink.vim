@@ -110,22 +110,30 @@ function! s:OpenMarkdownLink()
   let @a = ""
   normal "ayi]
   let escaped_link_name = escape(getreg('a'), '&')
-  let pattern = '\v^\['.escaped_link_name.'\]: (%(ftp[s]?|http[s]?):\/\/\S+)>'
+  let link_target_pattern = '\v^\['.escaped_link_name.'\]: (%(ftp[s]?|http[s]?):\/\/\S+)>'
   " go to link location
-  let found = search(pattern, 'e')
+  let found = search(link_target_pattern, 'e')
   if found
     "use netrw-gx to open the link
-    normal gx
+    call netrw#BrowseX(expand("<cfile>"),0)
   endif
   call setpos('.', initial_pos)
 endfunction
 
-command! OpenMarkdownLink call s:OpenLink()
+function! s:MarkdownAwareGX()
+  if s:OnMarkdownLink()
+    call s:OpenMarkdownLink()
+  else
+    call netrw#BrowseX(expand("<cfile>"),0)
+  endif
+endfunction
+
+command! MarkdownAwareGX call <sid>MarkdownAwareGX()
 if !exists('g:quicklink_open_mapping')
-  let g:quicklink_open_mapping = 'gX'
+  let g:quicklink_open_mapping = 'gx'
 endif
 if g:quicklink_open_mapping != ''
-  execute 'nnoremap <buffer> '.g:quicklink_open_mapping.' :OpenMarkdownLink<cr>'
+  execute 'nnoremap <buffer> '.g:quicklink_open_mapping.' :MarkdownAwareGX<cr>'
 endif
 
 vnoremap <buffer> <C-k> :call ConvertVisualSelectionToLink()<cr>

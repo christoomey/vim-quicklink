@@ -1,3 +1,8 @@
+" File: quicklink.vim
+" Author: Chris Toomey <chris@ctoomey.com>
+" Description: Markdown formatted link search, copy&paste and opening.
+" Last Modified: February 17, 2015
+
 let s:MARKDOWN_LINK_SYNTAX_IDS = [
   \ "markdownLinkText",
   \ "markdownLinkTextDelimiter",

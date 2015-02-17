@@ -1,3 +1,10 @@
+let s:MARKDOWN_LINK_SYNTAX_IDS = [
+  \ "markdownLinkText",
+  \ "markdownLinkTextDelimiter",
+  \ "mkdLink",
+  \ "mkdDelimiter"
+  \ ]
+
 function! ConvertVisualSelectionToLink(...)
   if a:0 == 0
     normal gv"vy
@@ -96,11 +103,9 @@ function! OpenLinkOnCurrentLine()
 endfunction
 
 function! s:OnMarkdownLink()
-    return synIDattr(synID(line("."),col("."),1),"name") == "markdownLinkText" ||
-                \ synIDattr(synID(line("."),col("."),1),"name") == "markdownLinkTextDelimiter" ||
-                \ synIDattr(synID(line("."),col("."),1),"name") == "mkdLink" ||
-                \ synIDattr(synID(line("."),col("."),1),"name") == "mkdDelimiter"
-endf
+  let current_syntax_id = synIDattr(synID(line("."), col("."), 1), "name")
+  return count(s:MARKDOWN_LINK_SYNTAX_IDS, current_syntax_id) != 0
+endfunction
 
 function! s:OpenMarkdownLink()
   "get the initial position of the curosr

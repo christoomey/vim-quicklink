@@ -129,11 +129,6 @@ function! s:MarkdownAwareGX()
 endfunction
 
 command! MarkdownAwareGX call <sid>MarkdownAwareGX()
-if !exists('g:quicklink_open_mapping')
-  let g:quicklink_open_mapping = 'gx'
-endif
-if g:quicklink_open_mapping != ''
-  execute 'nnoremap <buffer> '.g:quicklink_open_mapping.' :MarkdownAwareGX<cr>'
-endif
+nmap <buffer> gx :MarkdownAwareGX<cr>
 
 vnoremap <buffer> <C-k> :call ConvertVisualSelectionToLink()<cr>

@@ -107,20 +107,22 @@ function! s:OnMarkdownLink()
   return count(s:MARKDOWN_LINK_SYNTAX_IDS, current_syntax_id) != 0
 endfunction
 
-function! s:OpenMarkdownLink()
-  "get the initial position of the curosr
-  let initial_pos = getpos('.')
-  "empty the @a register in the case cursor is not well palced and that old
-  "patterns would still trigger.
+function! s:CaptureLinkText()
   let @a = ""
   normal "ayi]
-  let escaped_link_name = escape(getreg('a'), '&')
+  return escape(getreg('a'), '&')
+endfunction
+
+function! s:OpenWithNetrw() 
+  call netrw#BrowseX(expand("<cfile>"),0) 
+endfunction
+
+function! s:OpenMarkdownLink()
+  let initial_pos = getpos('.')
+  let escaped_link_name = s:CaptureLinkText()
   let link_target_pattern = '\v^\['.escaped_link_name.'\]: (%(ftp[s]?|http[s]?):\/\/\S+)>'
-  " go to link location
-  let found = search(link_target_pattern, 'e')
-  if found
-    "use netrw-gx to open the link
-    call netrw#BrowseX(expand("<cfile>"),0)
+  if search(link_target_pattern, 'e')
+    call s:OpenWithNetrw()
   endif
   call setpos('.', initial_pos)
 endfunction
@@ -134,6 +136,6 @@ function! s:MarkdownAwareGX()
 endfunction
 
 command! MarkdownAwareGX call <sid>MarkdownAwareGX()
-nmap <buffer> gx :MarkdownAwareGX<cr>
+nnoremap <buffer> gx :MarkdownAwareGX<cr>
 
 vnoremap <buffer> <C-k> :call ConvertVisualSelectionToLink()<cr>

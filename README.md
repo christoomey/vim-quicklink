@@ -9,10 +9,14 @@ into a markdown document.
 Usage
 -----
 
-Start by visually selecting the word or phrase you want to add a link around,
-then press `<C-k>` to activate the plugin. A prompt will pop up asking for the
-text to search for, defaulting to the highlighted text. Hit `<enter>` to run
-the search. A results window will pop up with the following keymaps:
+### URL Searching
+
+The main feature of `vim-quicklink` is to search for and insert a relevant link
+without needing to leave vim. You can do this by visually selecting the word or
+phrase you want to add a link around, then press `<C-k>` to activate the plugin.
+A prompt will pop up asking for the text to search for, defaulting to the
+highlighted text. Hit `<enter>` to run the search. A results window will pop up
+with the following keymaps:
 
 - `<tab>` - Jump to next search result
 - `<S-tab>` - Jump to the previous result
@@ -20,14 +24,13 @@ the search. A results window will pop up with the following keymaps:
 - `<enter>` - accept the result under the cursor
 - `q` - quit out of the quicklink adventure
 
-Additionally, the plugin lets you open a markdown reference (`[reference][]`) by
-pressing `gx`. One may want to configure a diffrent mapping than this (`<cr>`
-for e.g.) simply by mapping to the command `:MarkdownAwareGX`.
+### Link Opening
 
-This functionnality uses `pi_netrw` (`:normal gx`) in order to open the link, so
-it will open it using the program specified by the global variable
-`g:netrw_browsex_viewer` (see `:h netrw-gx`). Also, `:normal gx` will behave
-normally if on normal link.
+`vim-quicklink` also updates the `gx` mapping from `netrw` to work with markdown
+link format. The default behavior of `gx` when your cursor is over a URL will
+still work and is unchanged, but you can now also use `gx` on a markdown link
+such as `[webapi-vim][]` in this readme and `vim-quicklink` will find and open
+the associated URL using `netrw`.
 
 Installation
 ------------

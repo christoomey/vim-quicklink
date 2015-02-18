@@ -130,7 +130,7 @@ function! s:OpenMarkdownLink()
   let initial_pos = getpos('.')
   let escaped_link_name = s:CaptureLinkText()
   let link_target_pattern = '\v^\['.escaped_link_name.'\]: (%(ftp[s]?|http[s]?):\/\/\S+)>'
-  if search(link_target_pattern, 'e')
+  if search(link_target_pattern, 'ce')
     call s:OpenWithNetrw()
   endif
   call setpos('.', initial_pos)

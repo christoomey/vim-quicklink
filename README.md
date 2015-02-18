@@ -30,7 +30,10 @@ with the following keymaps:
 link format. The default behavior of `gx` when your cursor is over a URL will
 still work and is unchanged, but you can now also use `gx` on a markdown link
 such as `[webapi-vim][]` in this readme and `vim-quicklink` will find and open
-the associated URL using `netrw`.
+the associated URL using `netrw`. All keymaps :
+
+- `gx` - Open link under cursor;
+- `gl` - Go to link defintion under cursor.
 
 Installation
 ------------

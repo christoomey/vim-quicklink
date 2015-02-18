@@ -128,11 +128,17 @@ function! s:OpenWithNetrw()
   endif
 endfunction
 
+function! s:GoToLinkDefinition(link_name)
+  let link_target_pattern = '\v^\['.a:link_name.'\]: (%(ftp[s]?|http[s]?):\/\/\S+)>'
+  let found = search(link_target_pattern, 'ce')
+  normal B
+  return found
+endfunction
+
 function! s:OpenMarkdownLink()
   let initial_pos = getpos('.')
   let escaped_link_name = s:CaptureLinkText()
-  let link_target_pattern = '\v^\['.escaped_link_name.'\]: (%(ftp[s]?|http[s]?):\/\/\S+)>'
-  if search(link_target_pattern, 'ce')
+  if s:GoToLinkDefinition(escaped_link_name)
     call s:OpenWithNetrw()
   endif
   call setpos('.', initial_pos)
@@ -148,5 +154,8 @@ endfunction
 
 command! MarkdownAwareGX call <sid>MarkdownAwareGX()
 nnoremap <buffer> gx :MarkdownAwareGX<cr>
+
+command! GoToLinkDefinition call <sid>GoToLinkDefinition(<sid>CaptureLinkText())
+nnoremap <buffer> gl :GoToLinkDefinition<cr>
 
 vnoremap <buffer> <C-k> :call ConvertVisualSelectionToLink()<cr>

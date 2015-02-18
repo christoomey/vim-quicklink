@@ -18,11 +18,11 @@ A prompt will pop up asking for the text to search for, defaulting to the
 highlighted text. Hit `<enter>` to run the search. A results window will pop up
 with the following keymaps:
 
-- `<tab>` - Jump to next search result
-- `<S-tab>` - Jump to the previous result
-- `o` - open the link for the result under the cursor in your browser
-- `<enter>` - accept the result under the cursor
-- `q` - quit out of the quicklink adventure
+- `<tab>` - Jump to next search result;
+- `<S-tab>` - Jump to the previous result;
+- `o` - open the link for the result under the cursor in your browser;
+- `<enter>` - accept the result under the cursor;
+- `q` - quit out of the quicklink adventure.
 
 ### Link Opening
 

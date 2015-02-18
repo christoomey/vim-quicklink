@@ -6,8 +6,10 @@
 let s:MARKDOWN_LINK_SYNTAX_IDS = [
   \ "markdownLinkText",
   \ "markdownLinkTextDelimiter",
+  \ "markdownIdDeclaration",
   \ "mkdLink",
-  \ "mkdDelimiter"
+  \ "mkdDelimiter",
+  \ "mkdLinkDef"
   \ ]
 
 function! ConvertVisualSelectionToLink(...)

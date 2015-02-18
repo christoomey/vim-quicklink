@@ -140,7 +140,7 @@ function! s:MarkdownAwareGX()
   if s:OnMarkdownLink()
     call s:OpenMarkdownLink()
   else
-    call netrw#BrowseX(expand("<cfile>"),0)
+    call s:OpenWithNetrw()
   endif
 endfunction
 

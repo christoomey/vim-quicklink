@@ -119,7 +119,11 @@ function! s:CaptureLinkText()
 endfunction
 
 function! s:OpenWithNetrw() 
-  call netrw#BrowseX(expand("<cfile>"),0) 
+  if has("patch-7.4.567")
+    call netrw#BrowseX(expand("<cfile>"),0) 
+  else
+    call netrw#NetrwBrowseX(expand("<cfile>"),0) 
+  endif
 endfunction
 
 function! s:OpenMarkdownLink()

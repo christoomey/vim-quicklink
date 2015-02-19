@@ -1,0 +1,44 @@
+*quicklink.txt*	For Vim version 7.3	Last change: February 18th, 2015
+
+                                                                   *quicklink*
+
+INTRODUCTION                                          *quicklink-introduction*
+
+A Vim plugin for quickly looking up a topic and inserting the relevant link
+into a markdown document.
+
+==============================================================================
+MAPPINGS                                                  *quicklink-mappings*
+
+<C-k>                   When in 'visual' mode searches for the selected
+                        expression and opens an interactive window in which
+                        the first four search results of the expression have
+                        been listed.
+
+gx                      Open a markdown formated link under the cursor.
+                        "NOTE": The default behavior of `gx` when your cursor
+                        is over a URL will still work and is unchanged.
+
+gl                      Go to link defintion under cursor.
+
+Interactive window~
+
+<tab>                   Jump to next search result.
+
+<S-tab>                 Jump to the previous result.
+
+o                       Open the link for the result under the cursor in your
+                        browser.
+
+<enter>                 Accept the result under the cursor.
+
+q                       Quit out of the quicklink adventure.
+
+==============================================================================
+ABOUT                                                        *quicklink-about*
+
+Get the latest version of |quicklink| on GitHub:
+
+https://github.com/christoomey/vim-quicklink
+
+ vim:tw=78:ts=8:ft=help:norl:

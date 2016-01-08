@@ -14,14 +14,14 @@ let s:MARKDOWN_LINK_SYNTAX_IDS = [
 
 function! ConvertVisualSelectionToLink(...)
   if a:0 == 0
-    normal gv"vy
+    normal! gv"vy
     call s:SearchForTerm()
     return
   else
     let url = a:1
   endif
-  normal gv
-  normal mm
+  normal! gv
+  normal! mm
   execute 'normal! "lc[l][]'
   let current_line = line('.')
   let markdown_h2_pattern = '\v^(\w+.*\n-+|#{2,3}\s+\w+)'
@@ -34,7 +34,7 @@ function! ConvertVisualSelectionToLink(...)
   let formatted_link = '[' . @l . ']: ' . url
   call append(target_line, formatted_link)
   call s:EnsureLineAbove(target_line)
-  normal `m
+  normal! `m
 endfunction
 
 function! s:SearchForTerm()
@@ -64,15 +64,15 @@ function! s:DisplaySearchResults(results)
   setlocal nowrap
   nnoremap <buffer> q :q!<cr>
   nnoremap <buffer> <cr> :call SelectSearchResult()<cr>
-  nnoremap <buffer> <C-o> :normal gx<cr>
+  nnoremap <buffer> <C-o> :normal! gx<cr>
   nnoremap <buffer> <C-n> 2j
   nnoremap <buffer> <C-p> 2k
   nnoremap <buffer> <tab> :call search('^\S')<cr>:noh<cr>
   nnoremap <buffer> <S-tab> :call search('^\S', 'b')<cr>:noh<cr>
-  nnoremap <buffer> o :normal gx<cr>
-  normal ggdG
+  nnoremap <buffer> o :normal! gx<cr>
+  normal! ggdG
   call append(0, formatted)
-  normal ddgg
+  normal! ddgg
 endfunction
 
 function! s:EnsureLineAbove(target_line)
@@ -112,7 +112,7 @@ endfunction
 
 function! s:CaptureLinkText()
   let @a = ""
-  normal "ayi]
+  normal! "ayi]
   return escape(getreg('a'), '&')
 endfunction
 
@@ -127,7 +127,7 @@ endfunction
 function! s:GoToLinkDefinition(link_name)
   let link_target_pattern = '\v^\['.a:link_name.'\]: (%(ftp[s]?|http[s]?):\/\/\S+)>'
   let found = search(link_target_pattern, 'ce')
-  normal B
+  normal! B
   return found
 endfunction
 
